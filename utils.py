@@ -31,6 +31,15 @@ def convert_openai_completion_request_to_kobold(completion_req):
             "max_length": completion_req["max_tokens"]
         }
     }
+    
+#this is tested
+def convert_openai_completion_request_to_kobold(payload: OpenAICompletionRequest) -> KoboldAIRequest:
+    return KoboldAIRequest(
+        prompt=payload.prompt,
+        models=[payload.model],
+        trusted_workers=True,
+        params=Params(max_context_length=1, max_length=1)
+    )
 
 def call_kobold_api(kobold_req, api_key):
     print(f"Req: {kobold_req}")
