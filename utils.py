@@ -3,6 +3,8 @@ import uuid
 import requests
 import time
 
+#UNTESTED, but main structure here
+
 def convert_openai_chat_request_to_kobold(chat_req):
     prompt = ""
     for message in chat_req["messages"]:
