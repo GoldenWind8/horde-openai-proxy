@@ -2,6 +2,7 @@ import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 default_api_key = "0000000000"
+#mine: F1zmplJTUjd2vJoMB-qGhA
 
 def do_POST(self):
     api_key = self.headers.get("Authorization")
