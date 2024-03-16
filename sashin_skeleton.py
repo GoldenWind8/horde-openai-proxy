@@ -36,15 +36,3 @@ def do_POST(self):
     self.wfile.write(json.dumps(chat_resp).encode("utf-8"))
 
 
-# Helper functions (implement these according to your specific requirements)
-def convert_openai_chat_request_to_kobold(chat_req):
-    # Convert OpenAI chat request format to Kobold request format
-    pass
-
-def call_kobold_api(kobold_req, api_key):
-    # Make a request to the Kobold API using the provided request and API key
-    pass
-
-def convert_kobold_response_to_openai_chat_response(kobold_resp):
-    # Convert Kobold response format to OpenAI chat response format
-    pass
