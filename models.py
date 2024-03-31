@@ -15,13 +15,13 @@ class OpenAIChatRequest(BaseModel):
 class OpenAICompletionRequest(BaseModel):
     model: str
     prompt: str
-    max_tokens: int
-    temperature: float
-    top_p: float
-    n: int
-    stream: bool
-    logprobs: Optional[int]
-    stop: Optional[List[str]]
+    max_tokens: int = Field(default=128)
+    temperature: float = Field(default=0.8)
+    top_p: float = Field(default=0.9)
+    n: int = Field(default=1)
+    stream: bool = Field(default=False)
+    logprobs: Optional[int] = Field(default=None)
+    stop: Optional[List[str]] = Field(default=None)
 
 
 class OpenAIChatChoice(BaseModel):
@@ -63,6 +63,8 @@ class OpenAICompletionResponse(BaseModel):
 class Params(BaseModel):
     max_context_length: int
     max_length: int
+    temperature: float
+    top_p: float
 
 #end
 class KoboldAIRequest(BaseModel):
