@@ -1,17 +1,35 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
-
+"""OPEN AI CHAT MODELS"""
 class OpenAIChatMessage(BaseModel):
     role: str
     content: str
-
 
 class OpenAIChatRequest(BaseModel):
     model: str
     messages: List[OpenAIChatMessage]
 
-#Start here
+class OpenAIChatChoice(BaseModel):
+    index: int
+    message: OpenAIChatMessage
+    finish_reason: str
+
+class OpenAIUsage(BaseModel):
+    prompt_tokens: int
+    completion_tokens: int
+    total_tokens: int
+
+class OpenAIChatResponse(BaseModel):
+    id: str
+    object: str
+    created: int
+    choices: List[OpenAIChatChoice]
+    usage: OpenAIUsage
+
+
+
+"""OPEN AI COMPLETION MODELS"""
 class OpenAICompletionRequest(BaseModel):
     model: str
     prompt: str
@@ -23,33 +41,11 @@ class OpenAICompletionRequest(BaseModel):
     logprobs: Optional[int] = Field(default=None)
     stop: Optional[List[str]] = Field(default=None)
 
-
-class OpenAIChatChoice(BaseModel):
-    index: int
-    message: OpenAIChatMessage
-    finish_reason: str
-
-
-class OpenAIUsage(BaseModel):
-    prompt_tokens: int
-    completion_tokens: int
-    total_tokens: int
-
-
-class OpenAIChatResponse(BaseModel):
-    id: str
-    object: str
-    created: int
-    choices: List[OpenAIChatChoice]
-    usage: OpenAIUsage
-
-
 class OpenAICompletionChoice(BaseModel):
     text: str
     index: int
     logprobs: Optional[int]
     finish_reason: str
-
 
 class OpenAICompletionResponse(BaseModel):
     id: str
@@ -60,13 +56,14 @@ class OpenAICompletionResponse(BaseModel):
     usage: OpenAIUsage
 
 
+
+"""KOBOLD AI RELATED MODELS"""
 class Params(BaseModel):
     max_context_length: int
     max_length: int
     temperature: float
     top_p: float
 
-#end
 class KoboldAIRequest(BaseModel):
     prompt: str
     models: List[str]
