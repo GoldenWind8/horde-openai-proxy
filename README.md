@@ -1,6 +1,6 @@
-# OpenAI-Compatible API
+# Horde OpenAI-Compatible API
 
-This is an OpenAI-compatible API that provides a seamless interface for interacting with language models. It supports chat completions and text completions, similar to the OpenAI API, while leveraging the power of the Kobold API behind the scenes.
+This is an OpenAI-compatible API that provides a seamless interface for interacting with The Horde. It supports chat completions and text completions..
 
 ## Getting Started
 

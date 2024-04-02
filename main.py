@@ -3,6 +3,9 @@ from dotenv import load_dotenv
 import os
 
 from fastapi import FastAPI, HTTPException, Header
+from fastapi.openapi.models import Response
+from starlette.responses import JSONResponse
+
 from utils import *
 from models import *
 
@@ -12,14 +15,19 @@ default_api_key = os.getenv("API_KEY", "0000000000")
 base_url = os.getenv("BASE_URL", "")
 textgen_url = base_url  + "/api/v2/generate/text/"
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+@app.get("/health")
+async def health():
+    return {"status": "OK"}
+
+@app.get("/v1/models")
+async def show_available_models():
+    models = ["Mistral", "Mixtral", "DBRX"]
+    return JSONResponse(content=models)
 
 
-@app.get("/v1/chat/completions")
+@app.post("/v1/chat/completions")
 async def chat_handler(
-        request: OpenAICompletionRequest,
+        request: OpenAIChatRequest,
         authorization: Optional[str] = Header(default_api_key),
 ):
     api_key = authorization or default_api_key
@@ -29,7 +37,7 @@ async def chat_handler(
     kobold_req = convert_openai_chat_request_to_kobold(request)
     kobold_resp = None
     try:
-        kobold_resp = call_kobold_api(kobold_req, base_url, api_key)
+        kobold_resp = call_kobold_api(kobold_req, textgen_url, api_key)
     except Exception as e:
         print(f"Error calling Kobold API: {e}", file=sys.stderr)
         raise HTTPException(status_code=500, detail=str(e))

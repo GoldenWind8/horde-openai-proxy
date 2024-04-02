@@ -9,6 +9,13 @@ class OpenAIChatMessage(BaseModel):
 class OpenAIChatRequest(BaseModel):
     model: str
     messages: List[OpenAIChatMessage]
+    max_tokens: int = Field(default=128)
+    temperature: float = Field(default=0.8)
+    top_p: float = Field(default=0.9)
+    n: int = Field(default=1)
+    stream: bool = Field(default=False)
+    logprobs: Optional[int] = Field(default=None)
+    stop: Optional[List[str]] = Field(default=None)
 
 class OpenAIChatChoice(BaseModel):
     index: int
@@ -62,6 +69,7 @@ class Params(BaseModel):
     max_context_length: int
     max_length: int
     temperature: float
+    stop_sequence: Optional[List[str]]
     top_p: float
 
 class KoboldAIRequest(BaseModel):

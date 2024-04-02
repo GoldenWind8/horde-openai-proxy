@@ -1,27 +1,22 @@
-import json
 import uuid
 import requests
 import time
+from parser import parse_messages
 
 from fastapi import HTTPException
 
 from models import *
 
-def convert_openai_chat_request_to_kobold(chat_req):
-    prompt = ""
-    for message in chat_req["messages"]:
-        prompt += message["role"] + ": " + message["content"] + "\n"
-    prompt += "assistant: "
+def convert_openai_chat_request_to_kobold(payload: OpenAIChatRequest) -> KoboldAIRequest:
+    prompt = parse_messages(payload.messages)
 
-    return {
-        "prompt": prompt,
-        "models": [chat_req["model"]],
-        "trusted_workers": False,
-        "params": {
-            "max_context_length": 2048,
-            "max_length": 100
-        }
-    }
+    return KoboldAIRequest(
+        prompt=prompt,
+        models=[payload.model],
+        trusted_workers=False,
+        params=Params(max_context_length=512, max_length=payload.max_tokens, temperature=payload.temperature,
+                      top_p=payload.top_p, stop_sequence = payload.stop)
+    )
 
 def convert_openai_completion_request_to_kobold(payload: OpenAICompletionRequest) -> KoboldAIRequest:
     return KoboldAIRequest(
@@ -32,7 +27,7 @@ def convert_openai_completion_request_to_kobold(payload: OpenAICompletionRequest
     )
 
 def call_kobold_api(kobold_req: KoboldAIRequest, base_url, api_key) -> KoboldAIPollResponse:
-    print(f"Kobold Req: {kobold_req}")
+    print(f"Kobold Req: {kobold_req.json()}")
     req_body = kobold_req.json()
 
     headers = {
