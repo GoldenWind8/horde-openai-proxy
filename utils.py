@@ -19,8 +19,14 @@ def convert_openai_chat_request_to_kobold(payload: OpenAIChatRequest) -> KoboldA
     )
 
 def convert_openai_completion_request_to_kobold(payload: OpenAICompletionRequest) -> KoboldAIRequest:
+    prompt = payload.prompt
+    if isinstance(prompt, list):
+        prompt = prompt[0]
+
+    print(prompt)
+
     return KoboldAIRequest(
-        prompt=payload.prompt,
+        prompt=prompt,
         models=[payload.model],
         trusted_workers=False,
         params=Params(max_context_length=512, max_length=payload.max_tokens, temperature=payload.temperature, top_p = payload.top_p )

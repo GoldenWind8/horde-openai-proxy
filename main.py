@@ -56,7 +56,7 @@ async def completion_handler(
     api_key = authorization or default_api_key
     if api_key.startswith("Bearer "):
         api_key = api_key[len("Bearer "):]
-
+    print(2)
     kobold_req = convert_openai_completion_request_to_kobold(request)
     kobold_resp = None
     try:
