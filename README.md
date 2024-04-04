@@ -27,7 +27,7 @@ This is an OpenAI-compatible API that provides a seamless interface for interact
    - Define the following variables in the `.env` file:
      ```
      API_KEY=your_api_key
-     BASE_URL=https://api.aipowergrid.io
+     BASE_URL=horde_url
      ```
    - Replace `your_api_key` with your actual API key.
 

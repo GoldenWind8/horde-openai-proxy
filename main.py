@@ -44,7 +44,7 @@ async def chat_handler(
 
     chat_oai = convert_kobold_response_to_openai_chat_response(kobold_resp)
 
-    print(chat_oai.choices[0].message.content)
+#    print(chat_oai.choices[0].message.content)
 
     return chat_oai
 
