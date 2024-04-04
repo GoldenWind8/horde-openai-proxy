@@ -14,7 +14,7 @@ This is an OpenAI-compatible API that provides a seamless interface for interact
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/openai-compatible-api.git
+   git clone https://github.com/GoldenWind8/horde-openai-proxy.git
    ```
 
 2. Install the required dependencies:
